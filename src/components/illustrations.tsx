@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import routes from "@/app/config/routes";
+import React from "react";
 
 type Props = PropsWithClassName<{
 	width?: number;
@@ -35,7 +36,6 @@ export const NoContent = ({
 	<div className={cn("flex flex-col items-center", className)}>
 		<Image src="/create.svg" alt="empty" height={height} width={width} />
 		{children}
-		<HomeButton />
 	</div>
 );
 

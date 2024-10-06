@@ -1,6 +1,6 @@
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {getUserEvents} from "@/lib/server/get-user-events";
-import {EventsList} from "@/components/events-list";
+import {UserEventsList} from "@/components/events-list";
 import {Plus} from "lucide-react";
 
 export default async function MyEventsPage() {
@@ -18,7 +18,7 @@ export default async function MyEventsPage() {
               <span>New Event</span>
             </span>
                 </button>
-                <EventsList initialEvents={userEvents}/>
+                <UserEventsList initialEvents={userEvents}/>
             </div>
         </ScrollArea>
     );
