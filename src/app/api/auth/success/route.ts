@@ -1,5 +1,5 @@
 import routes, { baseUrl } from "@/app/config/routes";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma/client";
 import { faker } from "@faker-js/faker";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
@@ -15,14 +15,14 @@ export async function GET() {
 		throw new Error("Something went wrong with authentication: " + user);
 	}
 
-	// check if the user exists in the db
-	let dbUser = await db.user.findUnique({
+	// check if the user exists in the client
+	let dbUser = await prisma.user.findUnique({
 		where: { id: user.id },
 	});
 
 	// user were not found, we will create it
 	if (!dbUser) {
-		dbUser = await db.user.create({
+		dbUser = await prisma.user.create({
 			data: {
 				id: user.id,
 				displayName:

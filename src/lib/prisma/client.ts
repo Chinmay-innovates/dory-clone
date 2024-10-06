@@ -11,7 +11,7 @@
  * transactions.
  */
 
-import { PrismaClient } from "@prisma/client";
+import {PrismaClient} from "@prisma/client";
 
 /**
  * We need to create a global that persists between requests, so that we can
@@ -42,18 +42,20 @@ const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
  * the transaction options. We want to set a maximum wait time of 5 seconds
  * and a timeout of 10 seconds for transactions.
  */
-export const db =
-	globalForPrisma.prisma ||
-	new PrismaClient({
-		transactionOptions: {
-			maxWait: 5000,
-			timeout: 10_000,
-		},
-	});
+export const prisma =
+    globalForPrisma.prisma ||
+    new PrismaClient({
+        transactionOptions: {
+            // The maximum amount of time prisma wait to acquire a transaction from the database.
+            maxWait: 5000, // 5s
+            // The maximum amount of time the interactive transaction can run before being canceled and rolled back.
+            timeout: 10000, // 10s
+        },
+    });
 
 /**
  * If we're not in production mode, we'll assign the PrismaClient instance
  * to the globalForPrisma.prisma property, so that we can reuse the same
  * instance for all requests.
  */
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
