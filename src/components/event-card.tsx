@@ -4,7 +4,7 @@ import {PropsWithClassName} from "@/lib/utils/ui-utils";
 import {EventDetail} from "@/lib/prisma/validators/event-validators";
 import {Users} from "lucide-react";
 import {cn} from "@/lib/utils/ui-utils";
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 
 type Props = PropsWithClassName<{
     event: EventDetail;

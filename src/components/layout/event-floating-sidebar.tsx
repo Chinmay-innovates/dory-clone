@@ -2,7 +2,7 @@
 
 import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 import {usePathname, useRouter} from "next/navigation";
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 import {SidebarItem} from "@/components/layout/sidebar-item";
 import {BarChartIcon, MessageCircleMore} from "lucide-react";
 import {EventViewModeSelect} from "@/components/selects/event-view-mode-select";

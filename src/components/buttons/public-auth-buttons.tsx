@@ -5,7 +5,7 @@ import { PropsWithClassName } from "@/lib/utils/ui-utils";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import { buttonVariants } from "../ui/button";
 import { usePathname } from "next/navigation";
-import { baseUrl } from "@/app/config/routes";
+import { baseUrl } from "@/config/routes";
 
 export const PublicAuthButtons = ({ className }: PropsWithClassName) => {
 	const pathname = usePathname();

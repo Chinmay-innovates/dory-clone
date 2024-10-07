@@ -3,7 +3,7 @@
 import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {usePathname, useRouter} from "next/navigation";
 import {Button} from "../ui/button";
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 
 type Props = PropsWithClassName<{
     ownerId: string;

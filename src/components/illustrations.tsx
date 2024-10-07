@@ -5,7 +5,7 @@ import { PropsWithClassName } from "@/lib/utils/ui-utils";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 import React from "react";
 
 type Props = PropsWithClassName<{

@@ -6,7 +6,7 @@ import {
 	RegisterLink,
 	useKindeBrowserClient,
 } from "@kinde-oss/kinde-auth-nextjs";
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 import { cn } from "@/lib/utils/ui-utils";
 
 const btnClasses = cn(

@@ -1,4 +1,4 @@
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 import Link from "next/link";
 import { Suspense } from "react";
 import { AuthLoader } from "../loader";

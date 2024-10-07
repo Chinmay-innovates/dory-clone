@@ -4,7 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import {RegisterLink, useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 import {Button} from "@/components/ui/button";
 import {Bookmark, BookmarkCheck} from "lucide-react";
-import routes, {baseUrl} from "@/app/config/routes";
+import routes, {baseUrl} from "@/config/routes";
 import {
     Tooltip,
     TooltipContent,

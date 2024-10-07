@@ -1,5 +1,5 @@
 import {Event} from "@prisma/client";
-import routes, {baseUrl} from "@/app/config/routes";
+import routes, {baseUrl} from "@/config/routes";
 
 type Params = {
     ownerId: Event["ownerId"];

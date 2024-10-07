@@ -6,7 +6,7 @@ import { getUserInfo } from "@/lib/server/get-user-info";
 import { PropsWithClassName } from "@/lib/utils/ui-utils";
 
 import { Bell } from "lucide-react";
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 import { UserAvatar } from "@/components/user-avatar";
 import { PublicAuthButtons } from "./public-auth-buttons";
 

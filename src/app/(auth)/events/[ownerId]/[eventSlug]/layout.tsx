@@ -3,7 +3,7 @@ import {getEventDetail} from "@/lib/server/get-event-detail";
 import {notFound} from "next/navigation";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import Link from "next/link";
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 import {ArrowLeft} from "lucide-react";
 import {UserAvatar} from "@/components/user-avatar";
 import {ParticipantsTooltip} from "@/components/tooltips/participant-tooltip";

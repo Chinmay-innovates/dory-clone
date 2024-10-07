@@ -1,6 +1,6 @@
 "use client";
 
-import routes from "@/app/config/routes";
+import routes from "@/config/routes";
 import { cn } from "@/lib/utils/ui-utils";
 import { PropsWithClassName } from "@/lib/utils/ui-utils";
 import { BookMarked, Component, LogOut, Menu, User2 } from "lucide-react";
