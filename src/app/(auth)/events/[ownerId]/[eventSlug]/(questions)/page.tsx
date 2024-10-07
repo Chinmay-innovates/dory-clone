@@ -3,6 +3,11 @@ import {RefreshButton} from "@/components/buttons/refresh-button";
 import {QuestionsSortBySelect} from "@/components/selects/question-sort-by-select";
 import {QuestionsOrderBy} from "@/lib/utils/question-utils";
 import {ClearSearchParamsButton} from "@/components/buttons/clear-search-params-button";
+import {Suspense} from "react";
+import {Loader} from "@/components/loader";
+import {getEventResolvedQuestions} from "@/lib/server/get-event-resolved-questions";
+import {getEventOpenQuestions} from "@/lib/server/get-event-open-questions";
+import {OpenQuestionsList, ResolvedQuestionsList} from "@/components/questions-list";
 
 type PathParams = {
     ownerId: string,
@@ -38,13 +43,67 @@ const QuestionsPage = async ({params: {ownerId, eventSlug}, searchParams}: {
             </div>
         </div>
 
-        {/* Filter*/}
+        {/* Clear Filter Option */}
         {hasFilters && (
             <div className="flex mt-4 items-center">
                 <p className="">You have active filters!</p>
                 <ClearSearchParamsButton/>
             </div>
         )}
+        {/* List of questions */}
+        {/* List of questions */}
+        <Suspense key={ownerId + eventSlug} fallback={<Loader/>}>
+            <Questions
+                ownerId={ownerId}
+                eventSlug={eventSlug}
+                showResolved={showResolved}
+                orderBy={orderBy}
+                questionId={questionId}
+            />
+        </Suspense>
+
     </>
 }
+
+const Questions = async ({eventSlug, ownerId, showResolved, orderBy = "newest", questionId,}: {
+    showResolved: boolean;
+    ownerId: string;
+    eventSlug: string;
+    questionId?: string;
+    orderBy?: QuestionsOrderBy;
+}) => {
+    const fetchQuestions = showResolved
+        ? getEventResolvedQuestions
+        : getEventOpenQuestions;
+
+    // open or resolved questions
+    const questions = await fetchQuestions({
+        ownerId,
+        eventSlug,
+        orderBy,
+        ...(questionId ? {filters: {questionId}} : {}),
+    });
+
+    return showResolved ? (
+        <ResolvedQuestionsList
+            initialQuestions={questions}
+            ownerId={ownerId}
+            eventSlug={eventSlug}
+            questionId={questionId}
+            orderBy={orderBy}
+            className="mt-5"
+        />
+    ) : (
+        <OpenQuestionsList
+            initialQuestions={questions}
+            ownerId={ownerId}
+            eventSlug={eventSlug}
+            questionId={questionId}
+            orderBy={orderBy}
+            className="mt-5"
+        />
+    );
+};
+
 export default QuestionsPage
+
