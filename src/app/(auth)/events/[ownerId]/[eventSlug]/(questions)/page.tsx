@@ -2,6 +2,7 @@ import {QuestionsTabNavigation} from "@/components/layout/questions-tab-navigati
 import {RefreshButton} from "@/components/buttons/refresh-button";
 import {QuestionsSortBySelect} from "@/components/selects/question-sort-by-select";
 import {QuestionsOrderBy} from "@/lib/utils/question-utils";
+import {ClearSearchParamsButton} from "@/components/buttons/clear-search-params-button";
 
 type PathParams = {
     ownerId: string,
@@ -36,6 +37,14 @@ const QuestionsPage = async ({params: {ownerId, eventSlug}, searchParams}: {
                 </div>
             </div>
         </div>
+
+        {/* Filter*/}
+        {hasFilters && (
+            <div className="flex mt-4 items-center">
+                <p className="">You have active filters!</p>
+                <ClearSearchParamsButton/>
+            </div>
+        )}
     </>
 }
 export default QuestionsPage
