@@ -1,19 +1,18 @@
 "use client";
 
-import { PropsWithClassName } from "@/lib/utils/ui-utils";
-import { blue } from "tailwindcss/colors";
-import { Skeleton } from "./ui/skeleton";
-import { cn } from "@/lib/utils";
-import { BeatLoader } from "react-spinners";
+import {PropsWithClassName, cn} from "@/lib/utils/ui-utils";
+import {blue} from "tailwindcss/colors";
+import {Skeleton} from "./ui/skeleton";
+import {BeatLoader} from "react-spinners";
 
 export const Loader = () => {
-	return (
-		<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-			<BeatLoader color={blue[600]} size={16} />
-		</div>
-	);
+    return (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <BeatLoader color={blue[600]} size={16}/>
+        </div>
+    );
 };
 
-export const AuthLoader = ({ className }: PropsWithClassName) => {
-	return <Skeleton className={cn("bg-gray-100/50 w-32 h-10", className)} />;
+export const AuthLoader = ({className}: PropsWithClassName) => {
+    return <Skeleton className={cn("bg-gray-100/50 w-32 h-10", className)}/>;
 };

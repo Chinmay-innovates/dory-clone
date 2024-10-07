@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/ui-utils";
 import { PropsWithClassName } from "@/lib/utils/ui-utils";
 import Image from "next/image";
 import { Button } from "./ui/button";

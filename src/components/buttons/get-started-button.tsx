@@ -7,7 +7,7 @@ import {
 	useKindeBrowserClient,
 } from "@kinde-oss/kinde-auth-nextjs";
 import routes from "@/app/config/routes";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/ui-utils";
 
 const btnClasses = cn(
 	buttonVariants(),

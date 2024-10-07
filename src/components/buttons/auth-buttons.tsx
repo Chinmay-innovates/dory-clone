@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/ui-utils";
 import { getUserInfo } from "@/lib/server/get-user-info";
 import { PropsWithClassName } from "@/lib/utils/ui-utils";
 

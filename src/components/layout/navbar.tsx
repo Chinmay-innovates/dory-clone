@@ -1,5 +1,4 @@
 import routes from "@/app/config/routes";
-import { Flame } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { AuthLoader } from "../loader";
