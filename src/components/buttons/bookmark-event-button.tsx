@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/tooltip";
 import {toast} from "sonner";
 import debounce from "lodash.debounce"
+import {useIsParticipantView} from "@/hooks/use-is-participant-view";
 
 type Props = {
     event: EventDetail;
@@ -21,7 +22,7 @@ type Props = {
 export const BookmarkEventButton = ({event}: Props) => {
     const {user} = useKindeBrowserClient();
 
-    const isParticipantView = false;
+    const isParticipantView = useIsParticipantView();
     const [isBookmarked, setIsBookmarked] = useState(false);
 
 

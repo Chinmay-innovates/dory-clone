@@ -6,6 +6,7 @@ import routes from "@/config/routes";
 import {SidebarItem} from "@/components/layout/sidebar-item";
 import {BarChartIcon, MessageCircleMore} from "lucide-react";
 import {EventViewModeSelect} from "@/components/selects/event-view-mode-select";
+import {useIsParticipantView} from "@/hooks/use-is-participant-view";
 
 type Props = {
     eventSlug: string;
@@ -23,7 +24,7 @@ export const EventFloatingSidebar = ({eventSlug, ownerId, questionsCount, pollsC
     const questionsRoute = routes.event({eventSlug, ownerId});
     const pollsRoute = routes.eventPolls({eventSlug, ownerId});
 
-    const isParticipantView = false;
+    const isParticipantView = useIsParticipantView();
     const isAdmin = ownerId === user?.id;
 
     return (

@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/select";
 
 import {match} from "ts-pattern"
+import {eventPageQueryParams} from "@/config/query-params";
 
 const viewModes = ["admin", "participant"] as const;
 
 type ViewMode = (typeof viewModes)[number];
 
 
-const asParticipantParam = 'asParticipant' as const
+const asParticipantParam = eventPageQueryParams.asParticipant
 export const EventViewModeSelect = () => {
     const searchParams = useSearchParams();
     const pathname = usePathname();

@@ -8,6 +8,7 @@ import {Button} from "@/components/ui/button";
 import {Edit, Settings, Trash} from "lucide-react";
 import {DeleteEventDialog} from "@/components/dialogs/delete-event-dialog";
 import {UpdateEventDialog} from "@/components/dialogs/update-event-dialog";
+import {useIsParticipantView} from "@/hooks/use-is-participant-view";
 
 
 type Props = PropsWithClassName<{
@@ -21,7 +22,7 @@ export const EventAdminMenu = ({event, className}: Props) => {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
     const isAdmin = event.ownerId === user?.id;
-    const isParticipantView = false;
+    const isParticipantView = useIsParticipantView();
 
     if (isParticipantView || !isAdmin) {
         return null;
