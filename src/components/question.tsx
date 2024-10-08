@@ -7,6 +7,7 @@ import {UserAvatar} from "@/components/user-avatar";
 import {defaultDateFormatter} from "@/lib/utils/date-utils";
 import {CheckCircle, EllipsisVertical, Pin} from "lucide-react";
 import {QuestionVoteButton} from "@/components/buttons/question-vote-button";
+import {QuestionOptionsMenu} from "@/components/menu/question-options-menu";
 
 type Props = {
     question: QuestionDetail;
@@ -30,7 +31,8 @@ export const Question = ({question}: Props) => {
         <div className="flex items-center gap-x-5">
             {/* Vote button */}
             {!isEditing && (
-                <QuestionVoteButton questionId={question.id} eventSlug={question.event.slug} ownerId={question.event.ownerId}
+                <QuestionVoteButton questionId={question.id} eventSlug={question.event.slug}
+                                    ownerId={question.event.ownerId}
                                     upVotes={question.upVotes} totalVotes={question._count.upVotes}
                                     isResolved={isResolved}/>
             )}
@@ -59,7 +61,18 @@ export const Question = ({question}: Props) => {
                     {isResolved ? (
                         <CheckCircle className="stroke-green-500" size={20}/>
                     ) : (
-                        <EllipsisVertical size={16} className="ml-auto"/>
+                        <QuestionOptionsMenu
+                            questionId={question.event.id}
+                            isResolved={isResolved}
+                            isEditing={isEditing}
+                            isPinned={isPinned}
+                            isAuthor={isAuthor}
+                            isAdmin={isAdmin}
+                            toggleEditingMode={() => setIsEditing(true)}
+                            onPinChange={() => {}}
+                            onResolveChange={() => {}}
+                            className="text-slate-600 ml-auto"
+                        />
                     )}
 
                 </div>
