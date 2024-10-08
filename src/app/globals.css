@@ -31,3 +31,8 @@
     --chart-5: 27 87% 67%;
   }
 }
+@layer utilities{
+  .err-msg{
+    @apply text-destructive text-xs;
+  }
+}

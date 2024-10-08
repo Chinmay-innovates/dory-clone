@@ -36,7 +36,7 @@ const EventPageLayout = async ({children, params: {ownerId, eventSlug}}: Props) 
                 className="text-xs underline underline-offset-2"
             >
                 <ArrowLeft className="w-3 h-3 inline-block mr-1"/>
-                <span>Back to events</span>
+                <span className="font-mono">Back to events</span>
             </Link>
 
             {/* Top Header */}

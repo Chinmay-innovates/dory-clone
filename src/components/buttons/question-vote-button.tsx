@@ -5,6 +5,7 @@ import {Question, Event} from "@prisma/client";
 import {QuestionDetail} from "@/lib/prisma/validators/question-validator";
 import {RegisterLink, useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 import {ThumbsUp} from "lucide-react";
+import {useVote} from "@/hooks/use-question";
 
 type  Props = PropsWithClassName<{
     questionId: Question["id"],
@@ -16,7 +17,7 @@ type  Props = PropsWithClassName<{
 }>
 
 export const QuestionVoteButton = ({
-                                       totalVotes,
+                                       totalVotes: initialTotalVotes,
                                        ownerId,
                                        questionId,
                                        isResolved,
@@ -25,9 +26,9 @@ export const QuestionVoteButton = ({
                                        className
                                    }: Props) => {
     const {user} = useKindeBrowserClient();
-    const isUpvote = upVotes.some(
-        (upVote) => upVote.authorId === user?.id
-    )
+
+    const {totalVotes, handleVote, isUpvote} = useVote({upVotes, questionId, totalVotes: initialTotalVotes})
+
     if (!user) {
         return (
             <RegisterLink>
@@ -39,13 +40,14 @@ export const QuestionVoteButton = ({
         );
     }
     return <button
+        onClick={handleVote}
         className={cn(
             "flex flex-col items-center disabled:cursor-not-allowed disabled:opacity-80",
             className
         )}
         disabled={isResolved}
     >
-        <ThumbsUp className={cn(isUpvote && "stroke-blue-500")}/>
+        <ThumbsUp className={cn(isUpvote && "stroke-blue-500 fill-blue-400/20")}/>
         <span className={cn("px-2 pt-1 text-sm", isUpvote && "text-blue-500")}>
         {totalVotes}
       </span>

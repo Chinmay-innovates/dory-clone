@@ -8,6 +8,7 @@ import {defaultDateFormatter} from "@/lib/utils/date-utils";
 import {CheckCircle, EllipsisVertical, Pin} from "lucide-react";
 import {QuestionVoteButton} from "@/components/buttons/question-vote-button";
 import {QuestionOptionsMenu} from "@/components/menu/question-options-menu";
+import {useTogglePin, useToggleResolved, useUpdateQuestionBody} from "@/hooks/use-question";
 
 type Props = {
     question: QuestionDetail;
@@ -20,7 +21,23 @@ export const Question = ({question}: Props) => {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [isEditing, setIsEditing] = useState(false);
 
-    const {author, createdAt, isPinned, isResolved, body} = question;
+
+    const {isPinned, togglePin} = useTogglePin({
+        questionId: question.id,
+        isPinned: question.isPinned
+    })
+
+    const {isResolved, toggleResolve} = useToggleResolved({
+        questionId: question.id,
+        isResolved: question.isResolved
+    })
+
+    const {body, updateBody} = useUpdateQuestionBody({
+        questionId: question.id,
+        body: question.body
+    })
+
+    const {author, createdAt} = question;
     const isAuthor = author.id === user?.id;
     const isAdmin = question.event.ownerId === user?.id;
 
@@ -69,8 +86,8 @@ export const Question = ({question}: Props) => {
                             isAuthor={isAuthor}
                             isAdmin={isAdmin}
                             toggleEditingMode={() => setIsEditing(true)}
-                            onPinChange={() => {}}
-                            onResolveChange={() => {}}
+                            onPinChange={togglePin}
+                            onResolveChange={toggleResolve}
                             className="text-slate-600 ml-auto"
                         />
                     )}

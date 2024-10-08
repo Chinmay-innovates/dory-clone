@@ -1,12 +1,13 @@
 "use client"
 import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {QuestionDetail} from "@/lib/prisma/validators/question-validator";
-import {User, Event} from "@prisma/client";
+import {Event, User} from "@prisma/client";
 import {QuestionsOrderBy} from "@/lib/utils/question-utils";
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import {useSearchParams} from "next/navigation";
 import {NoContent} from "@/components/illustrations";
 import {Question} from "@/components/question";
+import {CreateQuestionForm} from "@/components/forms/create-question-form";
 
 type Props = PropsWithClassName<{
     initialQuestions: QuestionDetail[];
@@ -25,6 +26,14 @@ export const OpenQuestionsList = ({initialQuestions, ownerId, eventSlug, orderBy
 
     return (
         <div className={cn("space-y-8 pb-10", className)}>
+
+            {!hasFilters && (
+                <CreateQuestionForm
+                    ownerId={ownerId}
+                    eventSlug={eventSlug}
+                    onSuccess={(newQuestion: QuestionDetail) => setQuestions([newQuestion, ...questions])}
+                />
+            )}
             {questions.length === 0 ? (
                 <NoContent>
           <span className="tracking-tight font-light mt-3">
