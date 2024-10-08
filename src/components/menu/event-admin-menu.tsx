@@ -1,8 +1,8 @@
 "use client"
 import {useState} from "react";
-import {DropdownMenu, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent} from "@/components/ui/dropdown-menu";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
-import {PropsWithClassName, cn} from "@/lib/utils/ui-utils";
+import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {EventDetail} from "@/lib/prisma/validators/event-validators";
 import {Button} from "@/components/ui/button";
 import {Edit, Settings, Trash} from "lucide-react";

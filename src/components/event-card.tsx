@@ -1,9 +1,8 @@
 import Link from "next/link";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import {PropsWithClassName} from "@/lib/utils/ui-utils";
+import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {EventDetail} from "@/lib/prisma/validators/event-validators";
 import {Users} from "lucide-react";
-import {cn} from "@/lib/utils/ui-utils";
 import routes from "@/config/routes";
 
 type Props = PropsWithClassName<{

@@ -1,11 +1,6 @@
 import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {Users} from "lucide-react";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,} from "@/components/ui/tooltip";
 
 type Props = PropsWithClassName<{ participantsCount: number }>;
 
@@ -25,7 +20,7 @@ export const ParticipantsTooltip = ({participantsCount, className}: Props) => {
                     </div>
                 </TooltipTrigger>
 
-                <TooltipContent  align="center" side="top" sideOffset={10}
+                <TooltipContent align="center" side="top" sideOffset={10}
                                 className="bg-black rounded-lg text-white text-sm">
                     <p>{participantsCount} people have joined this event!</p>
                 </TooltipContent>

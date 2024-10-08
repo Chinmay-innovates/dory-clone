@@ -11,7 +11,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-import {Event, Question} from "@prisma/client";
+import {Question} from "@prisma/client";
 import {AlertDialogProps} from "@radix-ui/react-alert-dialog";
 import {cn} from "@/lib/utils/ui-utils";
 import {buttonVariants} from "@/components/ui/button";

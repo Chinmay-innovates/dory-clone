@@ -1,6 +1,6 @@
 "use client";
 
-import {PropsWithClassName, cn} from "@/lib/utils/ui-utils";
+import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {blue} from "tailwindcss/colors";
 import {Skeleton} from "./ui/skeleton";
 import {BeatLoader} from "react-spinners";

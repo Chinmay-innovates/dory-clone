@@ -1,19 +1,8 @@
 "use client";
 
-import {
-    CircleCheckBig,
-    Edit,
-    EllipsisVertical,
-    Pin,
-    Trash,
-} from "lucide-react";
+import {CircleCheckBig, Edit, EllipsisVertical, Pin, Trash,} from "lucide-react";
 import {useState} from "react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu";
 import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {QuestionDetail} from "@/lib/prisma/validators/question-validator";
 import {useIsParticipantView} from "@/hooks/use-is-participant-view";

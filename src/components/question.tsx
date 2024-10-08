@@ -5,7 +5,7 @@ import {useRef, useState} from "react";
 import {cn} from "@/lib/utils/ui-utils";
 import {UserAvatar} from "@/components/user-avatar";
 import {defaultDateFormatter} from "@/lib/utils/date-utils";
-import {CheckCircle, EllipsisVertical, Pin} from "lucide-react";
+import {CheckCircle, Pin} from "lucide-react";
 import {QuestionVoteButton} from "@/components/buttons/question-vote-button";
 import {QuestionOptionsMenu} from "@/components/menu/question-options-menu";
 import {useTogglePin, useToggleResolved, useUpdateQuestionBody} from "@/hooks/use-question";

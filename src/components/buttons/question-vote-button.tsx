@@ -1,7 +1,7 @@
 "use client"
 
 import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
-import {Question, Event} from "@prisma/client";
+import {Event, Question} from "@prisma/client";
 import {QuestionDetail} from "@/lib/prisma/validators/question-validator";
 import {RegisterLink, useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 import {ThumbsUp} from "lucide-react";
