@@ -7,6 +7,7 @@ import {EventCard} from "@/components/event-card";
 import {InfiniteScrollList} from "@/components/infinite-scroll-list";
 import {EventDetail} from "@/lib/prisma/validators/event-validators";
 import {getUserEventsAction} from "@/lib/actions/get-user-events-action";
+import {getUserBookmarkedEventsAction} from "@/lib/actions/get-user-bookmarked-events-action";
 
 type  Props = {
     initialEvents: EventDetail[];
@@ -57,7 +58,17 @@ export const UserEventsList = ({initialEvents}: Props) => {
     );
 };
 export const BookMarkedEventsList = ({initialEvents}: Props) => {
-    return initialEvents.map((event) => (
-        <EventCard key={event.id} event={event} className="h-36"/>
-    ))
+    const {executeAsync} = useAction(getUserBookmarkedEventsAction);
+
+    const fetchUserEvents = async (cursor?: Event["id"]) => {
+        const newEvents = await executeAsync({cursor});
+        return newEvents?.data || [];
+    };
+
+    return (
+        <EventsList
+            initialEvents={initialEvents}
+            fetchAction={fetchUserEvents}
+        />
+    );
 }
