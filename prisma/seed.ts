@@ -97,22 +97,7 @@ const runSeed = async () => {
                 body: faker.lorem.paragraph(),
                 createdAt: faker.date.recent(),
                 isLive: false,
-            }, {
-                eventId: event.id,
-                body: faker.lorem.paragraph(),
-                createdAt: faker.date.recent(),
-                isLive: true,
-            }, {
-                eventId: event.id,
-                body: faker.lorem.paragraph(),
-                createdAt: faker.date.recent(),
-                isLive: true,
-            }, {
-                eventId: event.id,
-                body: faker.lorem.paragraph(),
-                createdAt: faker.date.recent(),
-                isLive: false,
-            },
+            }
         ],
     });
 

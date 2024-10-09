@@ -13,6 +13,7 @@ import {getEventClosedPolls} from "@/lib/server/get-event-closed-polls";
 import {NoContent} from "@/components/illustrations";
 import {LivePoll} from "@/components/poll";
 import {ClosedPollsList} from "@/components/closed-poll-list";
+import {NewPollDialog} from "@/components/dialogs/new-poll-dialog";
 
 
 type PathParams = {
@@ -51,14 +52,16 @@ export default async function PollsPage({params: {ownerId, eventSlug}, searchPar
                     <RefreshButton/>
 
                     {showNewPollButton && (
-                        <Button
-                            variant={"ghost"}
-                            className="bg-blue-100 text-primary hover:bg-blue-200 hover:text-primary"
-                        >
-                            <Plus className="w-4 h-4 mr-2"/>
-                            <span>New</span>
-                            <span className="hidden lg:inline">Poll</span>
-                        </Button>
+                        <NewPollDialog eventId={event.id}>
+                            <Button
+                                variant={"ghost"}
+                                className="bg-blue-100 text-primary hover:bg-blue-200 hover:text-primary"
+                            >
+                                <Plus className="w-4 h-4 mr-2"/>
+                                <span>New</span>
+                                <span className="hidden lg:inline">Poll</span>
+                            </Button>
+                        </NewPollDialog>
                     )}
                 </div>
             </div>
