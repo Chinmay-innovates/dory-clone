@@ -1,21 +1,26 @@
 import {Event, User} from "@prisma/client";
-import {QuestionDetail} from "@/lib/prisma/validators/question-validator";
-import {FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {FormProvider, useForm} from "react-hook-form";
+import {QuestionDetail} from "@/lib/prisma/validators/question-validator";
 import {CreateQuestionSchema, createQuestionSchema} from "@/lib/schema-validations/question-schemas";
-import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {TextAreaWithCounter} from "@/components/textarea-with-counter";
-import {Button, buttonVariants} from "@/components/ui/button";
+
+import {toast} from "sonner";
 import {ChatBubbleIcon} from "@radix-ui/react-icons";
-import {cn} from "@/lib/utils/ui-utils";
+import {Button, buttonVariants} from "@/components/ui/button";
+import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {RegisterLink, useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
+import {TextAreaWithCounter} from "@/components/textarea-with-counter";
+
+import {cn} from "@/lib/utils/ui-utils";
+import {createQuestionAction} from "@/lib/actions/create-question-action";
+import {useAction} from "next-safe-action/hooks";
 
 type Props = {
     ownerId: User["id"];
     eventSlug: Event["slug"];
     onSuccess: (data: QuestionDetail) => void;
 };
-export const CreateQuestionForm = ({ownerId, eventSlug, onSuccess}: Props) => {
+export const CreateQuestionForm = ({ownerId, eventSlug, onSuccess: handleSuccess}: Props) => {
     const {isAuthenticated} = useKindeBrowserClient();
     const form = useForm<CreateQuestionSchema>({
         resolver: zodResolver(createQuestionSchema),
@@ -26,10 +31,22 @@ export const CreateQuestionForm = ({ownerId, eventSlug, onSuccess}: Props) => {
         },
         mode: "onSubmit"
     })
-    const isExecuting = false
+    const {execute, isExecuting} = useAction(createQuestionAction, {
+        onSuccess: ({data}) => {
+            if (data) {
+                handleSuccess(data);
+            }
+            toast.success("Your question has been posted!")
+        },
+        onError: () => {
+            toast.error("Failed to post your question. Please retry.")
+        },
+        onSettled: () => form.reset(),
+    });
+
     const isFieldDisabled = form.formState.isSubmitting || isExecuting;
 
-    const onSubmit = async (values: CreateQuestionSchema) => console.log(values)
+    const onSubmit = async (values: CreateQuestionSchema) => execute(values)
 
     return (
         <FormProvider {...form}>

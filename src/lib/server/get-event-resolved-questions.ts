@@ -1,3 +1,4 @@
+import "server-only"
 import {cache} from "react";
 import {Question, User, Event} from "@prisma/client";
 import {QuestionsOrderBy} from "@/lib/utils/question-utils";
@@ -13,16 +14,16 @@ type  Params = {
         questionId?: Question["id"];
     };
 }
-export const getEventOpenQuestions = cache(
-    async ({ownerId, eventSlug, orderBy = "newest", cursor, filters,}: Params) => {
+export const getEventResolvedQuestions = cache(
+    async ({ownerId, eventSlug, orderBy = "most-popular", cursor, filters,}: Params) => {
         return prisma.question.findMany({
             where: {
                 event: {
                     ownerId,
                     slug: eventSlug
                 },
-                isResolved: false,
-                ...(filters?.questionId ? {id: filters.questionId} : {})
+                isResolved: true,
+                ...(filters?.questionId? {id:filters.questionId}:{})
             },
             ...questionDetail,
             orderBy: [

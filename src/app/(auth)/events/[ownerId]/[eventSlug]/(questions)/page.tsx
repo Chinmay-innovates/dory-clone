@@ -1,13 +1,13 @@
+import {Suspense} from "react";
 import {QuestionsTabNavigation} from "@/components/layout/questions-tab-navigation";
 import {RefreshButton} from "@/components/buttons/refresh-button";
 import {QuestionsSortBySelect} from "@/components/selects/question-sort-by-select";
 import {QuestionsOrderBy} from "@/lib/utils/question-utils";
 import {ClearSearchParamsButton} from "@/components/buttons/clear-search-params-button";
-import {Suspense} from "react";
 import {Loader} from "@/components/loader";
+import {OpenQuestionsList, ResolvedQuestionsList} from "@/components/questions-list";
 import {getEventResolvedQuestions} from "@/lib/server/get-event-resolved-questions";
 import {getEventOpenQuestions} from "@/lib/server/get-event-open-questions";
-import {OpenQuestionsList, ResolvedQuestionsList} from "@/components/questions-list";
 
 type PathParams = {
     ownerId: string,

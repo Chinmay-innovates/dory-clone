@@ -1,4 +1,4 @@
-import * as z from "zod";
+import {z} from "zod";
 import {question} from "@/lib/schema-validations/constants";
 import {eventPublicIdSchema} from "@/lib/schema-validations/event-schemas";
 
@@ -18,9 +18,17 @@ export const createQuestionSchema = z.object({
     body: questionBodySchema,
 }).merge(eventPublicIdSchema)
 
+export const updateQuestionSchema = z.object({
+    questionId: questionIdSchema,
+    body: questionBodySchema.optional(),
+    isPinned: z.boolean().optional(),
+    isResolved: z.boolean().optional(),
+});
+
 export const getQuestionSchema = z.object({
     questionId: questionIdSchema,
 });
 
 export type CreateQuestionSchema = z.infer<typeof createQuestionSchema>;
 export type GetQuestionSchema = z.infer<typeof getQuestionSchema>;
+export  type UpdateQuestionSchema = z.infer<typeof updateQuestionSchema>;

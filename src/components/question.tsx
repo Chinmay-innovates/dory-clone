@@ -9,6 +9,10 @@ import {CheckCircle, Pin} from "lucide-react";
 import {QuestionVoteButton} from "@/components/buttons/question-vote-button";
 import {QuestionOptionsMenu} from "@/components/menu/question-options-menu";
 import {useTogglePin, useToggleResolved, useUpdateQuestionBody} from "@/hooks/use-question";
+import {Button} from "@/components/ui/button";
+import {TextAreaWithCounter} from "@/components/textarea-with-counter";
+import {question as questionValidator} from "@/lib/schema-validations/constants";
+import {questionBodySchema} from "@/lib/schema-validations/question-schemas";
 
 type Props = {
     question: QuestionDetail;
@@ -32,7 +36,7 @@ export const Question = ({question}: Props) => {
         isResolved: question.isResolved
     })
 
-    const {body, updateBody} = useUpdateQuestionBody({
+    const {body, updateBody, isExecuting: isUpdatingBody} = useUpdateQuestionBody({
         questionId: question.id,
         body: question.body
     })
@@ -40,6 +44,16 @@ export const Question = ({question}: Props) => {
     const {author, createdAt} = question;
     const isAuthor = author.id === user?.id;
     const isAdmin = question.event.ownerId === user?.id;
+
+    const handleBodyChange = () => {
+        const rawBodyValue = textareaRef.current?.value;
+        const parsedBody = questionBodySchema.safeParse(rawBodyValue);
+        if (parsedBody.success) {
+            const newBody = parsedBody.data;
+            setIsEditing(false);
+            updateBody(newBody);
+        }
+    }
 
     return <div className={cn(
         "border rounded-xl drop-shadow-md bg-white p-4 lg:p-6",
@@ -79,7 +93,7 @@ export const Question = ({question}: Props) => {
                         <CheckCircle className="stroke-green-500" size={20}/>
                     ) : (
                         <QuestionOptionsMenu
-                            questionId={question.event.id}
+                            questionId={question.id}
                             isResolved={isResolved}
                             isEditing={isEditing}
                             isPinned={isPinned}
@@ -95,7 +109,30 @@ export const Question = ({question}: Props) => {
                 </div>
                 {/* Question body or Editor */}
                 {isEditing ? (
-                    <form action=""></form>
+                    <form
+                        onSubmit={(evt) => {
+                            evt.preventDefault();
+                            handleBodyChange();
+                        }}
+                    >
+                        <TextAreaWithCounter
+                            ref={textareaRef}
+                            className="mt-3 min-h-24"
+                            defaultValue={body}
+                            maxLength={questionValidator.maxLength}
+                            autoFocus
+                        />
+
+                        <div className="flex gap-x-2 -mt-2 justify-end">
+                            <Button onClick={() => setIsEditing(false)} variant="ghost">
+                                Cancel
+                            </Button>
+
+                            <Button disabled={isUpdatingBody} type="submit">
+                                Save
+                            </Button>
+                        </div>
+                    </form>
                 ) : (
                     <p className="mt-5 ml-3 whitespace-pre-wrap text-sm">{body}</p>
                 )}

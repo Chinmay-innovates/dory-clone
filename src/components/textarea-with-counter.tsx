@@ -11,7 +11,7 @@ export const TextAreaWithCounter = forwardRef<HTMLTextAreaElement, Props>(
         {
             className,
             defaultValue = "",
-            maxLength = 10_000,
+            maxLength = 2500,
             onChange,
             autoComplete = "off",
             autoFocus = false,
