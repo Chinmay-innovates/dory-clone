@@ -15,6 +15,9 @@ import {Event} from "@prisma/client";
 import {AlertDialogProps} from "@radix-ui/react-alert-dialog";
 import {cn} from "@/lib/utils/ui-utils";
 import {buttonVariants} from "@/components/ui/button";
+import {useAction} from "next-safe-action/hooks";
+import {deleteEventAction} from "@/lib/actions/delete-event-action";
+import {toast} from "sonner";
 
 type Props = {
     eventId: Event["id"];
@@ -23,14 +26,20 @@ type Props = {
 
 export const DeleteEventDialog = ({eventId, onSuccess: handleSuccess, ...dialogProps}: Props) => {
 
-
+    const {execute, isExecuting: isFieldDisabled} = useAction(deleteEventAction, {
+        onError: (err) => {
+            console.error(err);
+            toast.error("Failed to delete event")
+        },
+        onSuccess: () => {
+            handleSuccess?.()
+            toast.success("Your event has been deleted successfully")
+        }
+    })
     const handleDelete = (evt: React.MouseEvent) => {
         evt.preventDefault();
-
-        // execute({eventId});
+        execute({eventId});
     };
-
-    const isFieldDisabled = false;
 
     return (
         <AlertDialog {...dialogProps}>
