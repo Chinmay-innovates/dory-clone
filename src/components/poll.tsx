@@ -11,18 +11,19 @@ import {getOptionVotesAsPercentage} from "@/lib/utils/poll-util";
 import {PollVotersTooltip} from "@/components/tooltips/poll-voters-tooltip";
 import {PollOptionsMenu} from "@/components/menu/poll-option-meu";
 import {ClosePollDialog} from "@/components/dialogs/close-poll-dialog";
+import {useLivePoll} from "@/hooks/use-poll";
 
 type Props = PropsWithClassName<{
     poll: PollDetail;
 }>;
-export const LivePoll = ({poll, className}: Props) => {
+export const LivePoll = ({poll: initialPoll, className}: Props) => {
     const {user} = useKindeBrowserClient();
 
     const [openCloseDialog, setOpenCloseDialog] = useState(false);
 
-    const votedOptionIndex = 0;
-    const voteOption = (index: number) => {
-    }
+    const {poll, votedOptionIndex, voteOption} = useLivePoll({
+        poll: initialPoll
+    })
 
     const {isLive, options} = poll;
     const totalVotes = poll._count.votes;

@@ -1,16 +1,17 @@
-"use server"
+"use server";
 
-import {actionClient} from "@/lib/actions/safe-action";
-import {getQuestionSchema} from "@/lib/schema-validations/question-schemas";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
+import {getQuestionSchema} from "@/lib/schema-validations/question-schemas";
+import {actionClient} from "@/lib/actions/safe-action";
 import {prisma} from "@/lib/prisma/client";
 
 export const voteQuestionAction = actionClient
     .schema(getQuestionSchema)
     .action(async ({parsedInput: {questionId}}) => {
         const user = await getKindeServerSession().getUser();
+
         if (!user) {
-            throw new Error("Not authenticated")
+            throw new Error("Not authenticated");
         }
 
         // find the question
@@ -38,15 +39,14 @@ export const voteQuestionAction = actionClient
             throw new Error("Question not found!");
         }
 
-
         // if the question has been resolved no more votes are allowed
         if (question.isResolved) {
             return;
         }
 
+        const wasUpvotedByUser = question.upVotes.length > 0;
 
-        const wasUpVoted = question.upVotes.length > 0;
-        if (wasUpVoted) {
+        if (wasUpvotedByUser) {
             // just remove the upvote
             await prisma.questionUpVote.delete({
                 where: {
@@ -60,7 +60,7 @@ export const voteQuestionAction = actionClient
             return true;
         }
 
-        //     user has not upVote this question
+        // the user has not upVoted this question
         await prisma.$transaction([
             // create upvote
             prisma.questionUpVote.create({
@@ -83,7 +83,7 @@ export const voteQuestionAction = actionClient
                 },
                 update: {},
             }),
-        ])
+        ]);
 
         return true;
-    })
+    });
