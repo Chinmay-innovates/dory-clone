@@ -12,7 +12,7 @@ const runSeed = async () => {
     const myUser = await prisma.user.create({
         data: {
             id: myUserId,
-            displayName: "alice",
+            displayName: "Alice",
             email: "yeyaw92738@rowplant.com",
             color: colors.red["500"],
         },
@@ -93,6 +93,21 @@ const runSeed = async () => {
                 isLive: true,
             },
             {
+                eventId: event.id,
+                body: faker.lorem.paragraph(),
+                createdAt: faker.date.recent(),
+                isLive: false,
+            }, {
+                eventId: event.id,
+                body: faker.lorem.paragraph(),
+                createdAt: faker.date.recent(),
+                isLive: true,
+            }, {
+                eventId: event.id,
+                body: faker.lorem.paragraph(),
+                createdAt: faker.date.recent(),
+                isLive: true,
+            }, {
                 eventId: event.id,
                 body: faker.lorem.paragraph(),
                 createdAt: faker.date.recent(),

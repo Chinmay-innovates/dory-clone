@@ -52,7 +52,7 @@ const QuestionsPage = async ({params: {ownerId, eventSlug}, searchParams}: {
         )}
         {/* List of questions */}
         {/* List of questions */}
-        <Suspense key={ownerId + eventSlug} fallback={<Loader/>}>
+        <Suspense key={Date.now()} fallback={<Loader/>}>
             <Questions
                 ownerId={ownerId}
                 eventSlug={eventSlug}
