@@ -38,6 +38,7 @@
 		"react": "^18",
 		"react-dom": "^18",
 		"react-hook-form": "^7.53.0",
+		"react-intersection-observer": "^9.13.1",
 		"react-spinners": "^0.14.1",
 		"server-only": "^0.0.1",
 		"slugify": "^1.6.6",
