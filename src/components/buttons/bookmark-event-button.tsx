@@ -5,15 +5,12 @@ import {RegisterLink, useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs"
 import {Button} from "@/components/ui/button";
 import {Bookmark, BookmarkCheck} from "lucide-react";
 import routes, {baseUrl} from "@/config/routes";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,} from "@/components/ui/tooltip";
 import {toast} from "sonner";
 import debounce from "lodash.debounce"
 import {useIsParticipantView} from "@/hooks/use-is-participant-view";
+import {useAction} from "next-safe-action/hooks";
+import {bookmarkEventAction} from "@/lib/actions/bookmark-event-action";
 
 type Props = {
     event: EventDetail;
@@ -24,6 +21,15 @@ export const BookmarkEventButton = ({event}: Props) => {
 
     const isParticipantView = useIsParticipantView();
     const [isBookmarked, setIsBookmarked] = useState(false);
+    const {execute} = useAction(bookmarkEventAction, {
+        onError: (err) => {
+            console.error(err)
+            toggleClientBookmark()
+        },
+        onSuccess: () => {
+            console.log("success bookmark event action")
+        }
+    })
 
 
     const handleBookmark = () => {
@@ -45,16 +51,13 @@ export const BookmarkEventButton = ({event}: Props) => {
         );
     };
 
-    const performBookmark = useCallback(
-        debounce(
-            () => {
-                console.log("performed")
-            },
-            1000,
-            {leading: false, trailing: true}
-        ),
-        [event.id]
-    );
+    const performBookmark = useCallback(() => {
+        const debouncedExecute = debounce(() => {
+            execute({eventId: event.id});
+        }, 1000, {leading: false, trailing: true});
+
+        debouncedExecute();
+    }, [event.id, execute]);
 
     useEffect(() => {
         setIsBookmarked(

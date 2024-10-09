@@ -200,16 +200,14 @@ export const useLivePoll = ({poll: initialPoll}: { poll: PollDetail }) => {
         performVote(newVoteOptionIndex);
     }
 
-    const performVote = useCallback(
-        debounce(
-            (newVotedOptionIndex: number) => {
-                executeVote({pollId: poll.id, optionIndex: newVotedOptionIndex});
-            },
-            1000,
-            {leading: false, trailing: true}
-        ),
-        [poll.id]
-    );
+    const performVote = useCallback((newVotedOptionIndex: number) => {
+        const debouncedVote = debounce(() => {
+            executeVote({pollId: poll.id, optionIndex: newVotedOptionIndex});
+        }, 1000, {leading: false, trailing: true});
+
+        debouncedVote();
+    }, [poll.id, executeVote]);
+
 
     return {
         poll,
