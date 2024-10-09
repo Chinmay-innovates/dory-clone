@@ -25,3 +25,27 @@ export const eventPublicIdSchema = z.object({
     eventSlug: eventSlugSchema,
 })
 
+export const createEventSchema = z.object({
+    title: z
+        .string()
+        .min(event.displayName.minLength, {
+            message: `Event title must have at least ${event.displayName.minLength} characters.`,
+        })
+        .max(event.displayName.maxLength, {
+            message: `Event title must not exceed ${event.displayName.maxLength} characters.`,
+        }),
+    shortDescription: shortDescriptionSchema,
+});
+
+export const updateEventSchema = z.object({
+    eventId: eventIdSchema,
+    shortDescription: shortDescriptionSchema,
+});
+
+export const deleteEventSchema = z.object({
+    eventId: eventIdSchema,
+});
+
+export type CreateEventSchema = z.infer<typeof createEventSchema>;
+export type UpdateEventSchema = z.infer<typeof updateEventSchema>;
+export type DeleteEventSchema = z.infer<typeof deleteEventSchema>;
