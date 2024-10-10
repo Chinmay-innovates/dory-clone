@@ -1,6 +1,5 @@
 "use client"
 import React from "react";
-import {Notification} from "@prisma/client";
 import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
 import {
     DropdownMenu,
@@ -19,49 +18,63 @@ import {ScrollArea} from "@/components/ui/scroll-area";
 import {defaultDateFormatter} from "@/lib/utils/date-utils";
 import {NotificationDetail} from "@/lib/prisma/validators/notification-validator";
 import {pollsPageQueryParams, questionsPageQueryParams} from "@/config/query-params";
+import {useNotifications} from "@/hooks/use-notifications";
 
 type  Props = PropsWithClassName<{
-    initialNotifications: Notification[]
+    initialNotifications: NotificationDetail[]
 }>
 
 export const NotificationsMenu = ({initialNotifications, className}: Props) => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const notifications = initialNotifications
-    const showDot = false;
+    // const notifications = initialNotifications
+    // const showDot = false;
+    //
+    // const handleOpenNotification = () => {
+    // }
+    // const markNotificationAsRead = () => {
+    // }
+    // const loadMoreNotifications = () => {
+    // }
+    const {
+        notifications,
+        hasMoreNotifications,
+        loadMoreNotifications,
+        markNotificationAsRead,
+        showDot,
+        setShowDot
+    } = useNotifications({initialNotifications})
 
-    const handleOpenNotification = () => {
-    }
-    const markNotificationAsRead = () => {
-    }
-    const loadMoreNotifications = () => {
+    const handleOpenNotification = () => setIsOpen(false);
+
+    const handleMenuOpen = (open: boolean) => {
+        if (open) setShowDot(false);
+        setIsOpen(open);
     }
     return (
-        <DropdownMenu modal open={isOpen} onOpenChange={setIsOpen}>
-
+        <DropdownMenu modal open={isOpen} onOpenChange={handleMenuOpen}>
             <DropdownMenuTrigger>
                 <Bell className={className}/>
                 {showDot && (
-                    <div className="absolute right-0 top-0 rounded-full bg-red-500 w-[8px] h-[8px]"/>
+                    <div className="relative -right-[16px] -top-[24px] rounded-full bg-red-500 size-[8px]"/>
                 )}
-                <DropdownMenuContent className="py-4 px-2 space-y-1 w-[300px] h-[300px] overflow-auto ">
-                    <ScrollArea className="h-full bg-white rounded-b-lg">
-                        <DropdownMenuLabel className="inline-flex items-center gap-x-1">
-                            <span>Notifications</span>
-                            <Bell className="size-4"/>
-                        </DropdownMenuLabel>
-                        <DropdownMenuSeparator/>
-                        {/* List of notifications */}
-                        <NotificationsList
-                            //@ts-ignore
-                            notifications={notifications}
-                            hasMoreNotifications={false}
-                            onOpenNotification={handleOpenNotification}
-                            onReadNotification={markNotificationAsRead}
-                            loadMoreNotifications={loadMoreNotifications}
-                        />
-                    </ScrollArea>
-                </DropdownMenuContent>
             </DropdownMenuTrigger>
+            <DropdownMenuContent className="py-4 px-2 space-y-1 w-[300px] h-[300px] overflow-auto ">
+                <ScrollArea className="h-full bg-white rounded-b-lg">
+                    <DropdownMenuLabel className="inline-flex items-center gap-x-1">
+                        <span>Notifications</span>
+                        <Bell className="size-4"/>
+                        <DropdownMenuSeparator/>
+                    </DropdownMenuLabel>
+                    {/* List of notifications */}
+                    <NotificationsList
+                        notifications={notifications}
+                        hasMoreNotifications={hasMoreNotifications}
+                        onOpenNotification={handleOpenNotification}
+                        onReadNotification={markNotificationAsRead}
+                        loadMoreNotifications={loadMoreNotifications}
+                    />
+                </ScrollArea>
+            </DropdownMenuContent>
         </DropdownMenu>
     )
 }

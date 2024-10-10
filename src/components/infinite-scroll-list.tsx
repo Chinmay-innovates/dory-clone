@@ -10,7 +10,7 @@ type Props<T extends { id: any }> = {
 };
 
 export const InfiniteScrollList =
-    <T extends { id: any }>({items, setItems, fetchMore, renderItem,}: Props<T>) => {
+    <T extends { id: any }>({items, setItems, fetchMore, renderItem}: Props<T>) => {
         const [cursor, setCursor] = useState(items.at(-1)?.id);
 
         const [hasMoreData, setHasMoreData] = useState(true);
