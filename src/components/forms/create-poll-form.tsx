@@ -69,7 +69,7 @@ export const CreatePollForm = ({eventId, onSuccess: handleSuccess,}: Props) => {
                                 />
                             </FormControl>
 
-                            <FormMessage className="error-msg">
+                            <FormMessage className="err-msg">
                                 {form.formState.errors.body?.message}
                             </FormMessage>
                         </FormItem>
@@ -81,7 +81,7 @@ export const CreatePollForm = ({eventId, onSuccess: handleSuccess,}: Props) => {
                         Options (max {poll.options.maxCount})
                     </FormLabel>
 
-                    <FormMessage className="error-msg">
+                    <FormMessage className="err-msg">
                         {form.formState.errors.options?.root?.message}
                     </FormMessage>
 
@@ -114,7 +114,7 @@ export const CreatePollForm = ({eventId, onSuccess: handleSuccess,}: Props) => {
                                         </div>
                                     </FormControl>
 
-                                    <FormMessage className="error-msg">
+                                    <FormMessage className="err-msg">
                                         {form.formState.errors.options?.[index]?.message}
                                     </FormMessage>
                                 </FormItem>

@@ -83,7 +83,7 @@ export const CreateEventForm = ({onSuccess: handleSuccess}: Props) => {
                                 />
                             </FormControl>
 
-                            <FormMessage className="error-msg">
+                            <FormMessage className="err-msg">
                                 {form.formState.errors.shortDescription?.message}
                             </FormMessage>
                         </FormItem>
