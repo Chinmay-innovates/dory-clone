@@ -45,8 +45,8 @@ const QuestionsPage = async ({params: {ownerId, eventSlug}, searchParams}: {
 
         {/* Clear Filter Option */}
         {hasFilters && (
-            <div className="flex mt-4 items-center">
-                <p className="">You have active filters!</p>
+            <div className="flex mt-4 items-center ">
+                <p>You have active filters!</p>
                 <ClearSearchParamsButton/>
             </div>
         )}

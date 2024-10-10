@@ -13,7 +13,7 @@ export const ClearSearchParamsButton = () => {
     };
 
     return (
-        <Button variant="outline" size="sm" onClick={handleClear}>
+        <Button variant="outline" size="sm" className="ml-2" onClick={handleClear}>
             <X className="w-4 h-4 mr-2"/>
             <span>Clear</span>
         </Button>

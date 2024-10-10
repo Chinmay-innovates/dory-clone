@@ -83,6 +83,17 @@ export const voteQuestionAction = actionClient
                 },
                 update: {},
             }),
+            //     send a notification to question author
+            ...(question.authorId !== user.id ? [
+                prisma.notification.create({
+                    data: {
+                        type: "QUESTION_UPVOTE",
+                        questionId,
+                        userId: question.authorId,
+                        eventId: question.eventId,
+                    },
+                })
+            ] : [])
         ]);
 
         return true;

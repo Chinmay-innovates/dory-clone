@@ -50,7 +50,7 @@ export const InfiniteScrollList =
                 {items.map((item) => renderItem(item))}
 
                 {hasMoreData && (
-                    <div ref={scrollTrigger} className="h-full w-full flex items-center justify-center">
+                    <div ref={scrollTrigger} className="h-full mt-12">
                         <Loader
                             className="animate-spin  w-full text-muted-foreground flex items-center justify-center ml-auto"
                             width={30} height={30}/>

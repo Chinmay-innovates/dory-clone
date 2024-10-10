@@ -11,7 +11,7 @@ import {getUserBookmarkedEventsAction} from "@/lib/actions/get-user-bookmarked-e
 
 type  Props = {
     initialEvents: EventDetail[];
-    fetchAction: (cursor?: Event["id"]) => Promise<EventDetail[]>;
+    fetchAction?: (cursor?: Event["id"]) => Promise<EventDetail[]>;
 }
 
 const EventsList = ({initialEvents, fetchAction}: Props) => {
@@ -19,7 +19,7 @@ const EventsList = ({initialEvents, fetchAction}: Props) => {
 
     const fetchMoreEvents = useCallback(
         async ({cursor}: { cursor?: Event["id"] }) => {
-            const newEvents = await fetchAction(cursor);
+            const newEvents = await fetchAction?.(cursor);
 
             if (!newEvents || newEvents.length === 0) {
                 return [];

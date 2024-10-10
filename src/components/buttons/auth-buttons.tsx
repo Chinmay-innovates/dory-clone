@@ -3,18 +3,23 @@ import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 
 import {getUserInfo} from "@/lib/server/get-user-info";
 import {cn, PropsWithClassName} from "@/lib/utils/ui-utils";
-
-import {Bell} from "lucide-react";
 import routes from "@/config/routes";
 import {UserAvatar} from "@/components/user-avatar";
 import {PublicAuthButtons} from "./public-auth-buttons";
+import {getUserNotifications} from "@/lib/server/get-user-notifications";
+import {NotificationsMenu} from "@/components/menu/notifications-menu";
 
 export const AuthButtons = async ({className}: PropsWithClassName) => {
     const kindeUser = await getKindeServerSession().getUser();
     const user = kindeUser && (await getUserInfo(kindeUser.id));
+
+    const initialNotificatons = kindeUser && (await getUserNotifications())
     return user ? (
         <div className={cn("inline-flex gap-x-7 items-center", className)}>
-            <Bell className="size-5"/>
+            <NotificationsMenu
+                className="size-5"
+                initialNotifications={initialNotificatons ?? []}
+            />
             <Link href={routes.dashboard}>
                 <UserAvatar
                     displayName={user.displayName}

@@ -6,15 +6,24 @@ import cuid from "cuid";
 const prisma = new PrismaClient();
 const runSeed = async () => {
     await resetDB();
-    const myUserId = "kp_373f04436ac44966919c210a25dfa8a9";
+    const aliceUserId = "kp_373f04436ac44966919c210a25dfa8a9"; //pass: 5xH6mfQdDZm6vVp
+    const poviwUserId = "kp_54ed9ee8918e4152bc63d880c1f0194d"; //pass: johndoe-123
 
     process.stdout.write("Generating users...");
     const myUser = await prisma.user.create({
         data: {
-            id: myUserId,
+            id: aliceUserId,
             displayName: "Alice",
             email: "yeyaw92738@rowplant.com",
             color: colors.red["500"],
+        },
+    });
+    const mockUser2 = await prisma.user.create({
+        data: {
+            id: poviwUserId,
+            displayName: "POVIW",
+            email: "poviw21413@craftapk.com",
+            color: colors.emerald["500"],
         },
     });
 
@@ -138,6 +147,7 @@ const runSeed = async () => {
 
 const resetDB = async () => {
     process.stdout.write("resetting client...");
+    await prisma.notification.deleteMany()
     await prisma.event.deleteMany();
     await prisma.poll.deleteMany();
     await prisma.question.deleteMany();
